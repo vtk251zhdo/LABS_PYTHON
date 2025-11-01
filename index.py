@@ -1,30 +1,35 @@
-a = float(input("Enter the first number (integer or fractional): "))
-b = float(input("Enter the second number (integer or fractional): "))
-c = float(input("Enter the third number (integer or fractional): "))
-d = float(input("Enter the fourth number (integer or fractional): "))
+a = float(input("Введіть перше число: "))
+b = float(input("Введіть друге число: "))
+c = float(input("Введіть третє число: "))
+d = float(input("Введіть четверте число: "))
 
 results = [
-    a + b,  
-    a - c,
-    b * d,  
-    a / b if b != 0 else "Division by zero",
-    c ** d,  
-    a // b if b != 0 else "Integer division by zero",  
-    a % b if b != 0 else "Modulo by zero"  
+    a + b,                   
+    a - c,                    
+    a * d,                 
+    a / b if b != 0 else None,   
+    a ** c,                     
+    a // d if d != 0 else None,  
+    a % b if b != 0 else None    
 ]
 
-print("Number of elements in the list:", len(results))
-print("Even elements in the list:")
+print("\nКількість елементів у списку:", len(results))
+
+print("Парні елементи списку:")
 for element in results:
-    if isinstance(element, (int, float)) and element % 2 == 0:
-        print(element)
+    if isinstance(element, (int, float)) and element is not None:
+        if element.is_integer() and int(element) % 2 == 0:
+            print(int(element))
+
 if len(results) >= 5:
     results[1], results[4] = results[4], results[1]
-print("List after swapping second and fifth elements:", results)
 
-name = input("Enter your last name and first name: ")
-print("\nAuthor of this lab work:", name)
-print("Conclusion:")
-print("1. The program demonstrates basic arithmetic operations.")
-print("2. It shows how to manipulate lists and handle user input.")
-print("3. The tasks were completed successfully.")
+print("\nСписок після обміну другого і п'ятого елементів:")
+print(results)
+
+name = input("\nВведіть прізвище та ім'я: ")
+
+print("\nАвтор лабораторної роботи:", name)
+print("Висновок:")
+print("1. Програма демонструє арифметичні операції над числами")
+print("2. Показано роботу зі списками та умовними перевірками")
