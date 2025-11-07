@@ -75,32 +75,41 @@ def task4():
 def task5():
     text = input("Введіть англійський текст: ")
 
+    if not all(ch.isascii() and (ch.isalpha() or ch.isspace() or ch in ",.!?;:") for ch in text):
+        print("Помилка: текст має містити лише латинські літери!")
+        return 
+
     letter_n = input("Введіть літеру, з якої мають починатися слова: ").lower()
     letter_p = input("Введіть літеру, на яку мають закінчуватися слова: ").lower()
 
-    if not (letter_n.isalpha() and letter_p.isalpha()):
-        print("Помилка: потрібно вводити лише літери")
-    else:
-        for ch in ",.!?;:":
-            text = text.replace(ch, "")
+    if not (letter_n.isalpha() and letter_p.isalpha() and letter_n.isascii() and letter_p.isascii()):
+        print("Помилка: потрібно вводити лише латинські літери!")
+        return
 
-        words = text.split()
+    for ch in ",.!?;:":
+        text = text.replace(ch, "")
 
-        start_words = []
-        end_words = []
+    words = text.split()
 
-        for w in words:
-            if w.lower().startswith(letter_n):
-                start_words.append(w)
-            if w.lower().endswith(letter_p):
-                end_words.append(w)
+    start_words = []
+    end_words = []
 
-        print("Слова, що починаються з літери", letter_n, ":", start_words)
-        print("Слова, що закінчуються на літеру", letter_p, ":", end_words)
+    for w in words:
+        if w.lower().startswith(letter_n):
+            start_words.append(w)
+        if w.lower().endswith(letter_p):
+            end_words.append(w)
+
+    print("Слова, що починаються з літери", letter_n, ":", start_words)
+    print("Слова, що закінчуються на літеру", letter_p, ":", end_words)
 
 
 def task6():
     text = input("Введіть англійський текст: ")
+
+    if not all(ch.isascii() and (ch.isalpha() or ch.isspace() or ch in ",.!?;:") for ch in text):
+        print("Помилка: текст має містити лише англійські літери!")
+        return
 
     vowels = "aeiouyAEIOUY"
     count = 0
@@ -115,6 +124,10 @@ def task6():
 def task7():
     text = input("Введіть англійський текст: ")
 
+    if not all(ch.isascii() and (ch.isalpha() or ch.isspace() or ch in ",.!?;:") for ch in text):
+        print("Помилка: текст має містити лише англійські літери!")
+        return
+
     for ch in ",.!?;:":
         text = text.replace(ch, "")
 
@@ -126,3 +139,4 @@ def task7():
             names.append(w)
 
     print("Слова, що починаються з великої літери:", names)
+
