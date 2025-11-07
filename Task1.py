@@ -3,13 +3,16 @@ text = input("Введіть текст українською (до 1000 слі
 if text.strip() == "":
     print("Помилка: текст порожній")
 else:
-    search = input("Введіть слово, з якого мають починатися інші слова: ").lower()
+    search = input("Введіть слово, з якого мають починатися або яке містяться в інших словах: ").lower()
 
-    words = text.replace(",", "").replace(".", "").split()
+    for ch in [",", ".", "!", "?", ":", ";", "(", ")", "[", "]", "{", "}", '"', "'"]:
+        text = text.replace(ch, "")
+
+    words = text.split()
     count = 0
 
     for w in words:
-        if w.lower().startswith(search):
+        if search in w.lower(): 
             count += 1
 
-    print("Кількість слів, що починаються з", search, ":", count)
+    print("Кількість слів, що містять", f"'{search}'", ":", count)
