@@ -229,3 +229,50 @@ def Task4():
     ])
 
     print(result)
+
+def Task5():
+        
+    def filter_reports(reports, output_format, keyword):
+        filtered_reports = []
+        errors = []
+
+        for item in reports:
+            if not isinstance(item, tuple) or len(item) != 3:
+                errors.append(item)
+                continue
+
+            title, author, fmt = item
+
+            if not isinstance(title, str) or not isinstance(author, str) or not isinstance(fmt, str):
+                errors.append(item)
+                continue
+
+            if title.strip() == "" or author.strip() == "" or fmt.strip() == "":
+                errors.append(item)
+                continue
+
+            if fmt == output_format and (keyword.lower() in title.lower() or keyword.lower() in author.lower()):
+                filtered_reports.append(item)
+
+        return filtered_reports, len(filtered_reports), errors
+
+
+    result = filter_reports(
+        [
+            ("Звіт1", "Іван Іванов", "pdf"),
+            ("Звіт2", "Олена Петрівна", "docx"),
+            ("", "Іван Іванов", "pdf"),
+            ("Звіт3", "", "pdf"),
+            ("Звіт4", "Петро Сидоров", ""),
+            "не кортеж",
+            123,
+            None,
+            ("Звіт5",),
+            ("Звіт6", "Іван Іванов"),
+            ("Звіт7", "Іван Іванов", 123),
+        ],
+        "pdf",
+        "Іва"
+    )
+
+    print(result)
