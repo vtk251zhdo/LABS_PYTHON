@@ -142,3 +142,24 @@ def Task5():
 
     if not found:
         print("Від’ємних сусідніх чисел у списку немає!")
+
+def Task6():
+
+    numbers = [random.randint(-50, 50) for _ in range(10)]
+
+    print("Початковий список з 10 чисел:")
+    print(numbers)
+
+    max_value = max(numbers)
+
+    squared = []
+
+    for num in numbers:
+        if num < max_value:
+            squared.append(num * num)
+
+    squared.sort(reverse=True)
+
+    print("\nМаксимальний елемент списку:", max_value)
+    print("Список квадратів чисел, менших за максимум:")
+    print(squared)
