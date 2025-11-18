@@ -163,3 +163,25 @@ def Task6():
     print("\nМаксимальний елемент списку:", max_value)
     print("Список квадратів чисел, менших за максимум:")
     print(squared)
+
+def Task7():
+
+    numbers = []
+
+    for _ in range(30):
+
+        if random.choice([True, False]):
+            numbers.append(random.randint(-100, 100))
+        else:
+            numbers.append(round(random.uniform(-100, 100), 2))
+
+    print("Початковий список з 30 випадкових чисел: ")
+    print(numbers)
+
+    min_abs_value = min(numbers, key=lambda x: abs(x))
+
+    sorted_list = sorted(numbers)
+
+    print("\nМінімальний по модулю елемент: ", min_abs_value)
+    print("Список у порядку збільшення: ")
+    print(sorted_list)
