@@ -164,3 +164,68 @@ def Task3():
     ])
 
     print(result)
+
+def Task4():
+
+    from datetime import datetime
+
+    def is_valid_date(date_str, date_format="%Y-%m-%d"):
+        try:
+            datetime.strptime(date_str, date_format)
+            return True
+        except (ValueError, TypeError):
+            return False
+
+    def analyze_expenses(expenses):
+        category_totals = {}
+        max_expense = None
+        invalid_dates = []
+        errors = []
+
+        for item in expenses:
+            if not isinstance(item, tuple) or len(item) != 3:
+                errors.append(item)
+                continue
+
+            amount, category, date = item
+
+            if not isinstance(amount, (int, float)):
+                errors.append(item)
+                continue
+            if not isinstance(category, str):
+                errors.append(item)
+                continue
+            if not is_valid_date(date):
+                invalid_dates.append(date)
+                errors.append(item)
+                continue
+
+            category_totals[category] = category_totals.get(category, 0) + amount
+
+            if max_expense is None or amount > max_expense[0]:
+                max_expense = item
+
+        return {
+            "category_totals": category_totals,
+            "max_expense": max_expense,
+            "invalid_dates": invalid_dates,
+            "errors": errors
+        }
+
+
+    result = analyze_expenses([
+        (100, "офіс", "2024-06-01"),
+        (200, "маркетинг", "2024-06-02"),
+        (50, "офіс", "2024-13-01"),
+        (None, "маркетинг", "2024-06-02"),
+        (100, None, "2024-06-01"),
+        (100, "офіс", None),
+        "не кортеж",
+        123,
+        None,
+        (100, "офіс"),
+        (100,),
+        (100, "офіс", "2024-06-01", "extra")
+    ])
+
+    print(result)
