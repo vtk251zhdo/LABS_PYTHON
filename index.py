@@ -57,3 +57,42 @@ def Task1():
 
         print("\nРезультат:")
         print(result)
+
+def Task2():
+
+    def extract_categories(item, categories, sums):
+
+        if isinstance(item, dict):
+            for key, value in item.items():
+                categories.add(key)
+                sums[key] = sums.get(key, 0) + value
+        elif isinstance(item, list):
+            for element in item:
+                extract_categories(element, categories, sums)
+
+    def analyze_nested_categories(data):
+
+        categories = set()
+        sums = {}
+        extract_categories(data, categories, sums)
+        return sorted(list(categories)), sums
+
+
+    nested_data = [
+        [
+            {"офіс": 100},
+            {"маркетинг": 200}
+        ],
+        [
+            [
+                {"офіс": 50},
+                {"маркетинг": 150}
+            ],
+            {"офіс": 200}
+        ],
+        {"офіс": 300},
+        [{"офіс": 100, "extra": 1}]
+    ]
+
+    result = analyze_nested_categories(nested_data)
+    print(result)
