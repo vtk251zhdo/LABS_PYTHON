@@ -185,3 +185,27 @@ def Task7():
     print("\nМінімальний по модулю елемент: ", min_abs_value)
     print("Список у порядку збільшення: ")
     print(sorted_list)
+
+def Task8(): 
+
+    numbers = []
+
+    for _ in range(30):
+
+        if random.choice([True, False]):
+            numbers.append(random.randint(-100, 100))
+        else:
+            numbers.append(round(random.uniform(-100, 100), 2))
+
+    print("Початковий список із 30 випадкових чисел: ")
+    print(numbers)
+
+    groups = []
+    for i in range(0, 30, 3):
+        groups.append(numbers[i:i+3])
+
+    groups_sorted = sorted(groups, key=lambda lst: sum(abs(x) for x in lst))
+
+    print("\nОтримані списки, відсортовані за сумою абсолютних значень: ")
+    for g in groups_sorted:
+        print(g, " - сума abs: ", sum(abs(x) for x in g))
