@@ -101,3 +101,44 @@ def Task3():
 
     print("Початковий список: ", numbers)
     print("Сума елементів: ", total)
+
+def Task4():
+
+    numbers = [random.randint(-100, 100) for _ in range(30)]
+
+    max_value = max(numbers)
+    max_index = numbers.index(max_value) + 1 
+
+    odd_numbers = [num for num in numbers if num % 2 != 0]
+
+    print("Початковий список з 30 випадкових чисел: ")
+    print(numbers)
+
+    print("\nМаксимальний елемент списку: ", max_value)
+    print("Його порядковий номер: ", max_index)
+
+    if odd_numbers:
+        odd_numbers.sort(reverse=True) 
+        print("\nСписок з непарних чисел (за спаданням): ")
+        print(odd_numbers)
+    else:
+        print("\nУ списку немає непарних чисел!")
+
+def Task5():
+    
+    numbers = [random.randint(-100, 100) for _ in range(30)]
+
+    print("Список з 30 випадкових чисел: ")
+    print(numbers)
+
+    print("\nПари від’ємних чисел, що стоять поруч: ")
+
+    found = False
+
+    for i in range(len(numbers) - 1):
+        if numbers[i] < 0 and numbers[i + 1] < 0:
+            print(numbers[i], numbers[i + 1])
+            found = True
+
+    if not found:
+        print("Від’ємних сусідніх чисел у списку немає!")
