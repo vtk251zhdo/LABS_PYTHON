@@ -96,3 +96,71 @@ def Task2():
 
     result = analyze_nested_categories(nested_data)
     print(result)
+
+def Task3():
+
+    def is_valid_email(email):
+        return isinstance(email, str) and "@" in email and "." in email and len(email) > 3
+
+    def analyze_clients(clients):
+        status_count = {}
+        invalid_emails = []
+        new_clients = []
+        errors = []
+
+        for item in clients:
+            if not isinstance(item, tuple) or len(item) != 3:
+                errors.append(item)
+                continue
+
+            name, status, email = item
+
+            if not isinstance(name, str) or not isinstance(status, str) or not isinstance(email, str):
+                errors.append(item)
+                continue
+
+            invalid = False
+
+            if name.strip() == "":
+                invalid = True
+            if status.strip() == "":
+                invalid = True
+            if email.strip() == "" or not is_valid_email(email):
+                invalid = True
+                invalid_emails.append(email)
+
+            if invalid:
+                errors.append(item)
+                continue
+
+            status_count[status] = status_count.get(status, 0) + 1
+
+            if status == "новий":
+                new_clients.append(name)
+
+        return {
+            "status_count": status_count,
+            "invalid_emails": invalid_emails,
+            "new_clients": new_clients,
+            "errors": errors
+        }
+
+    result = analyze_clients([
+        ("Іван", "новий", "ivan@email.com"),
+        ("Олена", "постійний", "olena[at]mail.com"),
+        ("", "новий", "ivan@email.com"),
+        ("Олена", "", "olena[at]mail.com"),
+        ("Іван", "новий", ""),
+        ("", "", ""),
+        ("Петро", "", ""),
+        "не кортеж",
+        123,
+        None,
+        ("Олена",),
+        ("Іван", "новий"),
+        (123, "новий", "ivan@email.com"),
+        ("Іван", 123, "ivan@email.com"),
+        ("Іван", "новий", 123)
+    ])
+
+    print(result)
