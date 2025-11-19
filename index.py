@@ -85,6 +85,67 @@ def Task3():
     print("\nРядки від найдовшого до найкоротшого: ")
     for l in sorted_lines:
         print(l)
+        
+def Task4():
+    source = "learning_python.txt"
+
+    if not os.path.exists(source):
+        print("Помилка: файл learning_python.txt не знайдено!")
+        return
+
+    with open(source, "r", encoding="utf-8") as f:
+        lines = [l.strip() for l in f if l.strip()]
+
+    if len(lines) == 0:
+        print("Помилка: файл порожній!")
+        return
+
+    folder = "Task4_output"
+    if not os.path.exists(folder):
+        os.mkdir(folder)
+
+    changed_file = os.path.join(folder, "learning_c.txt")
+    true_file = os.path.join(folder, "true_statements.txt")
+    false_file = os.path.join(folder, "false_statements.txt")
+
+    changed_lines = [l.replace("Python", "C") for l in lines]
+
+    with open(changed_file, "w", encoding="utf-8") as f:
+        for l in changed_lines:
+            f.write(l + "\n")
+
+    print("\nЗмінені фрази:\n")
+
+    true_list = []
+    false_list = []
+
+    for l in changed_lines:
+        print(l)
+        ans = input("Чи є фраза істинною для мови C? (так/ні): ").strip().lower()
+
+        if ans == "так":
+            true_list.append(l)
+        elif ans == "ні":
+            false_list.append(l)
+        elif ans == "yes":
+            false_list.append(l)
+        elif ans == "no":
+            false_list.append(l)
+        else:
+            print("Некоректна відповідь, пропуск")
+            false_list.append(l)
+
+    with open(true_file, "w", encoding="utf-8") as f:
+        for l in true_list:
+            f.write(l + "\n")
+
+    with open(false_file, "w", encoding="utf-8") as f:
+        for l in false_list:
+            f.write(l + "\n")
+
+    print("\nОпрацювання завершено!")
+    print("Істинні твердження записано у: ", true_file)
+    print("Хибні твердження записано у: ", false_file)
 
 def main():
     
@@ -93,6 +154,7 @@ def main():
         print("1 — Завдання 1 (сума з файла)")
         print("2 — Завдання 2 (парність чисел)")
         print("3 — Завдання 3 (довжина рядків)")
+        print("4 — Завдання 4 (перекладач)")
         print("0 — Вийти")
 
         choice = input("Ваш вибір: ")
@@ -103,6 +165,8 @@ def main():
             Task2()
         elif choice == "3":
             Task3()
+        elif choice == "4":
+            Task4()
         elif choice == "0":
             print("Вихід!")
             break
