@@ -2,6 +2,7 @@ import os
 from datetime import datetime
 import time
 import re
+import csv
 
 def Task1():
     
@@ -270,6 +271,110 @@ def Task6():
         f.write("Частота появи: " + str(frequency) + "\n")
         f.write("Час виконання (сек): " + str(round(elapsed, 6)) + "\n")
         f.write("-" * 40 + "\n")
+        
+def Task7():
+    
+    filename = "marks.lab6.csv"
+
+    if not os.path.exists(filename):
+        print("Помилка: файл marks.csv не знайдено!")
+        return
+
+    with open(filename, "r", encoding="utf-8") as f:
+        reader = csv.reader(f)
+        rows = [row for row in reader if row]
+
+    if len(rows) == 0:
+        print("Помилка: файл marks.csv порожній або некоректний!")
+        return
+
+    def parse_score(s):
+        return float(s.replace(",", "."))
+    
+    def parse_question_value(s):
+        s = s.strip()
+        if s == "-" or s == "":
+            return 0.0
+        return float(s.replace(",", "."))
+    
+    def parse_duration_minutes(duration_str):
+        parts = duration_str.split()
+        mins = 0
+        secs = 0
+        for i, p in enumerate(parts):
+            if p.isdigit():
+                val = int(p)
+                if i + 1 < len(parts) and parts[i + 1].startswith("хв"):
+                    mins = val
+                elif i + 1 < len(parts) and parts[i + 1].startswith("сек"):
+                    secs = val
+        return mins + secs / 60.0
+
+    students = rows
+    total_students = len(students)
+    print("Кількість студентів, що проходили тестування: ", total_students)
+
+    score_counts = {}
+    for r in students:
+        score = parse_score(r[4])
+        score_counts[score] = score_counts.get(score, 0) + 1
+
+    print("\nКількість студентів для кожної оцінки: ")
+    for score, count in sorted(score_counts.items()):
+        print(f"Оцінка {score}: {count} студент(ів)")
+
+    minute_groups = {}
+    for r in students:
+        score = parse_score(r[4])
+        minutes = int(parse_duration_minutes(r[3]))
+        if minutes not in minute_groups:
+            minute_groups[minutes] = []
+        minute_groups[minutes].append(score)
+
+    print("\nСередня оцінка за певний час виконання КМР: ")
+    for m in sorted(minute_groups.keys()):
+        scores = minute_groups[m]
+        avg = sum(scores) / len(scores)
+        print(f"{m} хв: середня оцінка {avg:.2f}")
+
+    num_questions = 20
+    first_q_index = 5
+
+    correct_counts = [0] * num_questions
+    for r in students:
+        for i in range(num_questions):
+            val = parse_question_value(r[first_q_index + i])
+            if val > 0:
+                correct_counts[i] += 1
+
+    stats_filename = "marks_statistics.txt"
+    with open(stats_filename, "w", encoding="utf-8") as f:
+        f.write("Статистика по правильним відповідям для кожного питання:\n")
+        for i in range(num_questions):
+            q_name = f"student - {i + 1}"
+            correct = correct_counts[i]
+            wrong = total_students - correct
+            pc_correct = correct / total_students * 100
+            pc_wrong = wrong / total_students * 100
+            f.write(f"{q_name}: правильних {pc_correct:.2f}%, неправильних {pc_wrong:.2f}%\n")
+
+        ratios = []
+        for r in students:
+            score = parse_score(r[4])
+            minutes_full = parse_duration_minutes(r[3])
+            if minutes_full > 0:
+                ratio = score / minutes_full
+                ratios.append((ratio, score, r[3]))
+
+        ratios.sort(reverse=True)
+        top5 = ratios[:5]
+
+        f.write("\nТоп-5 оцінок за співвідношенням оцінка/час:\n")
+        for ratio, score, dur_str in top5:
+            f.write(f"Оцінка {score}, час {dur_str}, співвідношення {ratio:.4f}\n")
+
+    print("\nСтатистику записано у файл", stats_filename)
+    
 
 def main():
     
@@ -281,6 +386,7 @@ def main():
         print("4 — Завдання 4 (Перекладач)")
         print("5 — Завдання 5 (Вітальник)")
         print("6 — Завдання 6 (Словник про Пайтон)")
+        print("7 — Завдання 7 (Довідник)")
         print("0 — Вийти")
 
         choice = input("Ваш вибір: ")
@@ -297,11 +403,12 @@ def main():
             Task5()
         elif choice == "6":
             Task6()
+        elif choice == "7":
+            Task7()
         elif choice == "0":
             print("Вихід!")
             break
         else:
             print("Помилка вибору!")
-
 
 main()
