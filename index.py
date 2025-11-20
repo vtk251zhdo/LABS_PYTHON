@@ -1,4 +1,7 @@
 import os
+from datetime import datetime
+import time
+import re
 
 def Task1():
     
@@ -147,6 +150,41 @@ def Task4():
     print("Істинні твердження записано у: ", true_file)
     print("Хибні твердження записано у: ", false_file)
 
+def Task5():
+    
+    filename = "guest_book.txt"
+
+    if not os.path.exists(filename):
+        created = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write("Файл створено: " + created + "\n")
+            f.write("Остання зміна: " + created + "\n\n")
+
+    while True:
+        name = input("Введіть ім'я (або 'вихід'): ").strip()
+
+        if name.lower() == "вихід":
+            print("Вихід у головне меню.")
+            return
+
+        if name == "":
+            print("Помилка: ім’я порожнє!")
+            continue
+
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        greeting = f"Вітаю, {name}! — {timestamp}"
+        print(greeting)
+
+        with open(filename, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+
+        lines[1] = "Остання зміна: " + timestamp + "\n"
+
+        with open(filename, "w", encoding="utf-8") as f:
+            for line in lines:
+                f.write(line)
+            f.write(greeting + "\n")
+
 def main():
     
     while True:
@@ -155,6 +193,7 @@ def main():
         print("2 — Завдання 2 (парність чисел)")
         print("3 — Завдання 3 (довжина рядків)")
         print("4 — Завдання 4 (перекладач)")
+        print("5 — Завдання 5 (Вітальник)")
         print("0 — Вийти")
 
         choice = input("Ваш вибір: ")
@@ -167,6 +206,10 @@ def main():
             Task3()
         elif choice == "4":
             Task4()
+        elif choice == "5":
+            Task5()
+        elif choice == "6":
+            Task6()
         elif choice == "0":
             print("Вихід!")
             break
