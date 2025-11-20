@@ -185,15 +185,102 @@ def Task5():
                 f.write(line)
             f.write(greeting + "\n")
 
+def Task6():
+    
+    text_file = "python_text.txt"
+
+    if not os.path.exists(text_file):
+        print("Помилка: файл python_text.txt не знайдено!")
+        return
+
+    with open(text_file, "r", encoding="utf-8") as f:
+        text = f.read()
+
+    if not text.strip():
+        print("Помилка: файл порожній!")
+        return
+
+    mode = input("Оберіть режим аналізу (1 — літера, 2 — слово): ").strip()
+
+    if mode not in ("1", "2"):
+        print("Помилка: невірний режим!")
+        return
+
+    start_time = time.time()
+    lower_text = text.lower()
+
+    if mode == "1":
+        target = input("Введіть літеру для пошуку: ").strip().lower()
+        if len(target) != 1:
+            print("Помилка: потрібно ввести одну літеру!")
+            return
+        total_letters = 0
+        for ch in lower_text:
+            if ch.isalpha():
+                total_letters += 1
+        count = lower_text.count(target)
+        if total_letters > 0:
+            frequency = count / total_letters
+        else:
+            frequency = 0.0
+        result_type = "літера"
+        total_base = total_letters
+    else:
+        target = input("Введіть слово для пошуку: ").strip().lower()
+        if target == "":
+            print("Помилка: слово порожнє!")
+            return
+        words = re.findall(r"\b\w+\b", lower_text)
+        total_words = len(words)
+        count = 0
+        for w in words:
+            if w == target:
+                count += 1
+        if total_words > 0:
+            frequency = count / total_words
+        else:
+            frequency = 0.0
+        result_type = "слово"
+        total_base = total_words
+
+    elapsed = time.time() - start_time
+
+    print("\nРезультати аналізу: ")
+    print("Тип об'єкта: ", result_type)
+    print("Шукане значення: ", target)
+    print("Кількість входжень у тексті: ", count)
+    print("Загальна кількість елементів у базі підрахунку: ", total_base)
+    print("Частота появи: ", frequency)
+    print("Час, витрачений на пошук (сек): ", round(elapsed, 6))
+
+    log_file = "analysis_log.txt"
+    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    if not os.path.exists(log_file):
+        with open(log_file, "w", encoding="utf-8") as f:
+            f.write("Файл журналу створено: " + now_str + "\n")
+            f.write("\n")
+
+    with open(log_file, "a", encoding="utf-8") as f:
+        f.write("Час виконання пошуку: " + now_str + "\n")
+        f.write("Тип об'єкта: " + result_type + "\n")
+        f.write("Шукане значення: " + target + "\n")
+        f.write("Кількість входжень: " + str(count) + "\n")
+        f.write("Базова кількість елементів: " + str(total_base) + "\n")
+        f.write("Частота появи: " + str(frequency) + "\n")
+        f.write("Час виконання (сек): " + str(round(elapsed, 6)) + "\n")
+        f.write("-" * 40 + "\n")
+
 def main():
     
     while True:
         print("\nЗавдання:")
-        print("1 — Завдання 1 (сума з файла)")
-        print("2 — Завдання 2 (парність чисел)")
-        print("3 — Завдання 3 (довжина рядків)")
-        print("4 — Завдання 4 (перекладач)")
+        print("1 — Завдання 1 (Сума з файла)")
+        print("2 — Завдання 2 (Парність чисел)")
+        print("3 — Завдання 3 (Довжина рядків)")
+        print("4 — Завдання 4 (Перекладач)")
         print("5 — Завдання 5 (Вітальник)")
+        print("6 — Завдання 6 (Словник про Пайтон)")
         print("0 — Вийти")
 
         choice = input("Ваш вибір: ")
