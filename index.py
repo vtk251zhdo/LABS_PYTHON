@@ -90,6 +90,52 @@ def Task2():
 
 # Завдання 2
 
+# Завдання 3
+
+class Car:
+    def __init__(self, make, model, year):
+        if not isinstance(make, str) or not isinstance(model, str):
+            raise TypeError("Марка і модель мають бути текстом")
+        if not isinstance(year, int) or year <= 1800:
+            raise ValueError("Невірний рік виробництва")
+
+        self.make = make
+        self.model = model
+        self.year = year
+        self.speed = 0
+
+    def accelerate(self):
+        self.speed += 5
+
+    def brake(self):
+        self.speed = max(0, self.speed - 5)
+
+    def get_speed(self):
+        return self.speed
+      
+def Task3():
+    try:
+        make = input("Марка: ")
+        model = input("Модель: ")
+        year = int(input("Рік випуску: "))
+
+        car = Car(make, model, year)
+
+        print("\nПрискорення:")
+        for _ in range(5):
+            car.accelerate()
+            print("Швидкість:", car.get_speed())
+
+        print("\nГальмування:")
+        for _ in range(5):
+            car.brake()
+            print("Швидкість:", car.get_speed())
+
+    except Exception as e:
+        print("Помилка:", e)
+
+# Завдання 3
+
 def main():
     while True:
         print("\nЗавдання:")
@@ -103,6 +149,8 @@ def main():
         if choice == "1":
             Task1()
         elif choice == "2":
+            Task2()
+        elif choice == "3":
             Task2()
         elif choice == "0":
             print("Вихід!")
