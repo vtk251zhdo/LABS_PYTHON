@@ -136,12 +136,96 @@ def Task3():
 
 # Завдання 3
 
+# Завдання 4
+
+class Dog:
+    mammal = "ссавець"
+    nature = "невідомий"
+    breed = "невідома порода"
+
+    def __init__(self, name, age):
+        if not isinstance(name, str):
+            raise TypeError("Ім'я має бути текстом")
+        if not isinstance(age, int) or age <= 0:
+            raise ValueError("Вік має бути додатним числом")
+
+        self.name = name
+        self.age = age
+
+    def info(self):
+        return f"{self.name}, {self.age} років, {self.breed}, характер: {self.nature}"
+
+    def voice(self):
+        return f"{self.name} каже: гав"
+
+
+class Husky(Dog):
+    nature = "активний, енергійний"
+    breed = "husky"
+
+    def run(self):
+        return f"{self.name} біжить як вітер"
+
+
+class Bulldog(Dog):
+    nature = "спокійний, ледачкуватий"
+    breed = "bulldog"
+
+    def guard(self):
+        return f"{self.name} охороняє територію"
+
+
+class Chihuahua(Dog):
+    nature = "емоційний, голосний"
+    breed = "chihuahua"
+
+    def squeak(self):
+        return f"{self.name} подає високий голос"
+
+
+class Pets:
+    def __init__(self, pets_list):
+        self.pets_list = pets_list
+
+    def show_all(self):
+        for pet in self.pets_list:
+            print(pet.info())
+            print("Поводження:", self.get_behavior(pet))
+            print()
+
+    def get_behavior(self, pet):
+        if isinstance(pet, Husky):
+            return pet.run()
+        if isinstance(pet, Bulldog):
+            return pet.guard()
+        if isinstance(pet, Chihuahua):
+            return pet.squeak()
+        return pet.voice()
+
+def Task4():
+    try:
+        dog1 = Husky("Рекс", 3)
+        dog2 = Bulldog("Бім", 5)
+        dog3 = Chihuahua("Тіна", 2)
+
+        my_pets = Pets([dog1, dog2, dog3])
+
+        print("\nВаші домашні улюбленці:\n")
+        my_pets.show_all()
+
+    except Exception as e:
+        print("Помилка:", e)
+
+
+# Завдання 4
+
 def main():
     while True:
         print("\nЗавдання:")
         print("1 — Завдання 1")
         print("2 — Завдання 2")
         print("3 — Завдання 3")
+        print("4 — Завдання 4")
         print("0 — Вийти")
 
         choice = input("Ваш вибір: ")
@@ -151,7 +235,9 @@ def main():
         elif choice == "2":
             Task2()
         elif choice == "3":
-            Task2()
+            Task3()
+        elif choice == "4":
+            Task4()
         elif choice == "0":
             print("Вихід!")
             break
