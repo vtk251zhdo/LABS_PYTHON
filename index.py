@@ -216,8 +216,49 @@ def Task4():
     except Exception as e:
         print("Помилка:", e)
 
-
 # Завдання 4
+
+# Завдання 5
+
+class Buffer:
+    def __init__(self):
+        self.data = []
+
+    def add(self, *a):
+        for x in a:
+            if not isinstance(x, int):
+                raise TypeError("Усі елементи мають бути цілими числами")
+            self.data.append(x)
+
+            if len(self.data) == 5:
+                print(sum(self.data))
+                self.data = []
+
+    def get_current_part(self):
+        return self.data[:]
+
+def Task5():
+    try:
+        buf = Buffer()
+
+        buf.add(1, 2, 3)
+        print("Поточні дані:", buf.get_current_part())
+
+        buf.add(4, 5, 6)
+        print("Поточні дані:", buf.get_current_part())
+
+        buf.add(7, 8)
+        print("Поточні дані:", buf.get_current_part())
+
+        buf.add(9, 10, 11, 12, 13, 14)
+        print("Поточні дані:", buf.get_current_part())
+
+    except Exception as e:
+        print("Помилка:", e)
+
+# Завдання 5
+
+
 
 def main():
     while True:
@@ -226,6 +267,8 @@ def main():
         print("2 — Завдання 2")
         print("3 — Завдання 3")
         print("4 — Завдання 4")
+        print("5 — Завдання 5")
+        print("6 — Завдання 6")
         print("0 — Вийти")
 
         choice = input("Ваш вибір: ")
@@ -238,11 +281,14 @@ def main():
             Task3()
         elif choice == "4":
             Task4()
+        elif choice == "5":
+            Task5()
+        elif choice == "6":
+            Task6()
         elif choice == "0":
             print("Вихід!")
             break
         else:
             print("Помилка вибору!")
-
 
 main()
