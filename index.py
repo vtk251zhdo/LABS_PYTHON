@@ -353,6 +353,57 @@ def Task7():
     
 # Завдання 7
 
+# Завдання 8
+
+def Task8():
+
+    from shop import Shop, Discount
+
+    print("\na\n______________________________")
+    store = Shop("MegaStore", "електроніка")
+    print(store.shop_name)
+    print(store.store_type)
+    store.describe_shop()
+    store.open_shop()
+
+    print("\nb\n______________________________")
+    store1 = Shop("FoodBox", "продукти")
+    store2 = Shop("Clothes4U", "одяг")
+    store3 = Shop("PawShop", "товари для тварин")
+
+    store1.describe_shop()
+    store2.describe_shop()
+    store3.describe_shop()
+
+    print("\nc\n______________________________")
+    store = Shop("TechOne", "гаджети")
+    print(store.number_of_units)
+    store.number_of_units = 15
+    print(store.number_of_units)
+
+    print("\nd\n______________________________")
+    store.set_number_of_units(30)
+    print(store.number_of_units)
+
+    store.increment_number_of_units(10)
+    print(store.number_of_units)
+
+    print("\ne\n______________________________")
+    store_discount = Discount("SalePoint", "різне", ["Телефон", "Ноутбук", "Навушники"])
+    store_discount.get_discounts_products()
+
+    print("\nf\n______________________________")
+    all_store = Shop("UniversalShop", "універсальний")
+    all_store.open_shop()
+
+# Завдання 8
+
+# Завдання 9
+
+
+
+# Завдання 9
+
 def main():
     while True:
         print("\nЗавдання:")
@@ -363,6 +414,7 @@ def main():
         print("5 — Завдання 5")
         print("6 — Завдання 6")
         print("7 — Завдання 7")
+        print("8 — Завдання 8")
         print("0 — Вийти")
 
         choice = input("Ваш вибір: ")
@@ -381,6 +433,10 @@ def main():
             Task6()
         elif choice == "7":
             Task7()
+        elif choice == "8":
+            Task8()
+        elif choice == "9":
+            Task9()
         elif choice == "0":
             print("Вихід!")
             break
