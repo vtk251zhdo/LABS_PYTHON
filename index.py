@@ -258,7 +258,26 @@ def Task5():
 
 # Завдання 5
 
+# Завдання 6
 
+class NameTooShortError(ValueError):
+    pass
+
+def check_name(name):
+    if not isinstance(name, str):
+        raise TypeError("Ім'я має бути текстом")
+    if len(name) < 10:
+        raise NameTooShortError("Ім'я занадто коротке")
+
+def Task6():
+    try:
+        name = input("Введіть ім'я: ")
+        check_name(name)
+        print("Ім'я прийнято")
+    except Exception as e:
+        print("Помилка:", e)
+
+# Завдання 6
 
 def main():
     while True:
