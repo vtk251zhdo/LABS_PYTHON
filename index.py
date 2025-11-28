@@ -72,7 +72,8 @@ class Coin:
     def toss(self):
         self.__sideup = random.choice(["heads", "tails"])
         return self.__sideup
-    
+
+
 def Task2():
     try:
         n = int(input("Скільки разів підкидати монету: "))
@@ -112,7 +113,7 @@ class Car:
 
     def get_speed(self):
         return self.speed
-      
+
 def Task3():
     try:
         make = input("Марка: ")
@@ -291,10 +292,23 @@ class DecimalRoman:
 
     def convert(self):
         roman_map = [
-            (1000, "M"), (900, "CM"), (500, "D"), (400, "CD"),
-            (300, "CCC"), (200, "CC"), (100, "C"), (90, "XC"),
-            (50, "L"), (40, "XL"), (30, "XXX"), (20, "XX"),
-            (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")
+            (1000, "M"),
+            (900, "CM"),
+            (500, "D"),
+            (400, "CD"),
+            (300, "CCC"),
+            (200, "CC"),
+            (100, "C"),
+            (90, "XC"),
+            (50, "L"),
+            (40, "XL"),
+            (30, "XXX"),
+            (20, "XX"),
+            (10, "X"),
+            (9, "IX"),
+            (5, "V"),
+            (4, "IV"),
+            (1, "I"),
         ]
         result = ""
         num = self.number
@@ -303,7 +317,7 @@ class DecimalRoman:
                 result += symbol
                 num -= value
         return result
-    
+
 class RomanDecimal:
     def __init__(self, roman):
         if not isinstance(roman, str):
@@ -311,10 +325,7 @@ class RomanDecimal:
         self.roman = roman.upper()
 
     def convert(self):
-        roman_values = {
-            "M": 1000, "D": 500, "C": 100,
-            "L": 50, "X": 10, "V": 5, "I": 1
-        }
+        roman_values = {"M": 1000, "D": 500, "C": 100, "L": 50, "X": 10, "V": 5, "I": 1}
         total = 0
         prev = 0
 
@@ -329,7 +340,7 @@ class RomanDecimal:
             prev = value
 
         return total
-    
+
 def Task7():
     try:
         print("\n1 — Десяткове в Римське")
@@ -350,7 +361,7 @@ def Task7():
             print("Помилка вибору.")
     except Exception as e:
         print("Помилка:", e)
-    
+
 # Завдання 7
 
 # Завдання 8
@@ -400,7 +411,43 @@ def Task8():
 
 # Завдання 9
 
+def Task9():
 
+    from user import User
+    from admin import Admin
+
+    print("\na\n______________________________")
+    u1 = User("Ivan", "Petrenko", "ivan@gmail.com", "ivan_ukr", True)
+    u2 = User("Olya", "Shevchenko", "olya@gmail.com", "olichka", False)
+    u3 = User("Dmytro", "Shevchenko", "d@gmail.com", "Dmytro324", False)
+    u4 = User("Gena", "Kykyshka", "gena666@gmail.com", "GENA666", False)
+
+    u1.describe_user()
+    u1.greeting_user()
+
+    u2.describe_user()
+    u2.greeting_user()
+
+    u3.describe_user()
+    u3.greeting_user()
+
+    u4.describe_user()
+    u4.greeting_user()
+
+    print("\nb\n______________________________")
+    test_user = User("Test", "User", "test@mail.com", "tester", True)
+
+    test_user.increment_login_attempts()
+    test_user.increment_login_attempts()
+    test_user.increment_login_attempts()
+    print("Спроби входу:", test_user.login_attempts)
+
+    test_user.reset_login_attempts()
+    print("Після скидання:", test_user.login_attempts)
+
+    print("\nc\n______________________________")
+    admin = Admin("Danyil", "Zhukovskyi", "dan@gmail.com", "admin_dan", True)
+    admin.priv.show_privileges()
 
 # Завдання 9
 
@@ -415,6 +462,7 @@ def main():
         print("6 — Завдання 6")
         print("7 — Завдання 7")
         print("8 — Завдання 8")
+        print("9 — Завдання 9")
         print("0 — Вийти")
 
         choice = input("Ваш вибір: ")
