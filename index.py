@@ -279,6 +279,80 @@ def Task6():
 
 # Завдання 6
 
+# Завдання 7
+
+class DecimalRoman:
+    def __init__(self, number):
+        if not isinstance(number, int):
+            raise TypeError("Число має бути= цілим")
+        if number <= 0 or number >= 3999:
+            raise ValueError("Число має бути в діапазоні від 1 до 3999")
+        self.number = number
+
+    def convert(self):
+        roman_map = [
+            (1000, "M"), (900, "CM"), (500, "D"), (400, "CD"),
+            (300, "CCC"), (200, "CC"), (100, "C"), (90, "XC"),
+            (50, "L"), (40, "XL"), (30, "XXX"), (20, "XX"),
+            (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")
+        ]
+        result = ""
+        num = self.number
+        for value, symbol in roman_map:
+            while num >= value:
+                result += symbol
+                num -= value
+        return result
+    
+class RomanDecimal:
+    def __init__(self, roman):
+        if not isinstance(roman, str):
+            raise TypeError("Римське число має бути текстом")
+        self.roman = roman.upper()
+
+    def convert(self):
+        roman_values = {
+            "M": 1000, "D": 500, "C": 100,
+            "L": 50, "X": 10, "V": 5, "I": 1
+        }
+        total = 0
+        prev = 0
+
+        for char in reversed(self.roman):
+            if char not in roman_values:
+                raise ValueError("Некоректний римський символ")
+            value = roman_values[char]
+            if value < prev:
+                total -= value
+            else:
+                total += value
+            prev = value
+
+        return total
+    
+def Task7():
+    try:
+        print("\n1 — Десяткове в Римське")
+        print("2 — Римське в Десяткове")
+        choice = input("Ваш вибір: ")
+
+        if choice == "1":
+            num = int(input("Введіть десяткове число: "))
+            conv = DecimalRoman(num)
+            print("Результат:", conv.convert())
+
+        elif choice == "2":
+            r = input("Введіть римське число: ")
+            conv = RomanDecimal(r)
+            print("Результат:", conv.convert())
+
+        else:
+            print("Помилка вибору.")
+    except Exception as e:
+        print("Помилка:", e)
+    
+# Завдання 7
+
 def main():
     while True:
         print("\nЗавдання:")
@@ -288,6 +362,7 @@ def main():
         print("4 — Завдання 4")
         print("5 — Завдання 5")
         print("6 — Завдання 6")
+        print("7 — Завдання 7")
         print("0 — Вийти")
 
         choice = input("Ваш вибір: ")
@@ -304,6 +379,8 @@ def main():
             Task5()
         elif choice == "6":
             Task6()
+        elif choice == "7":
+            Task7()
         elif choice == "0":
             print("Вихід!")
             break
