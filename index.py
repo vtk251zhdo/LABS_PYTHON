@@ -63,7 +63,32 @@ def Task1():
 
 # Завдання 1
 
+# Завдання 2
 
+class Coin:
+    def __init__(self):
+        self.__sideup = random.choice(["heads", "tails"])
+
+    def toss(self):
+        self.__sideup = random.choice(["heads", "tails"])
+        return self.__sideup
+    
+def Task2():
+    try:
+        n = int(input("Скільки разів підкидати монету: "))
+        if n <= 0:
+            print("Кількість повинна бути більшою за нуль")
+            return
+
+        coin = Coin()
+
+        for i in range(n):
+            print(f"Підкидання {i+1}: {coin.toss()}")
+
+    except Exception as e:
+        print("Помилка:", e)
+
+# Завдання 2
 
 def main():
     while True:
