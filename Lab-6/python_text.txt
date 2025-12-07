@@ -1,0 +1,37 @@
+As I write this edition in 2009, Python comes in two flavors—version 3.0 is an emerging
+and incompatible mutation of the language, and 2.6 retains backward compatibility
+with the vast body of existing Python code. Although Python 3 is viewed as the future
+of Python, Python 2 is still widely used and will be supported in parallel with Python
+3 for years to come. While 3.0 is largely the same language, it runs almost no code
+written for prior releases (the mutation of print from statement to function alone,
+aesthetically sound as it may be, breaks nearly every Python program ever written).
+This split presents a bit of a dilemma for both programmers and book authors. While
+it would be easier for a book to pretend that Python 2 never existed and cover 3 only,
+this would not address the needs of the large Python user base that exists today. A vast
+amount of existing code was written for Python 2, and it won’t be going away any time
+soon. And while newcomers to the language can focus on Python 3, anyone who must
+use code written in the past needs to keep one foot in the Python 2 world today. Since
+it may be years before all third-party libraries and extensions are ported to Python 3,
+this fork might not be entirely temporary.To address this dichotomy and to meet the needs of all potential readers, this edition
+of this book has been updated to cover both Python 3.0 and Python 2.6 (and later
+releases in the 3.X and 2.X lines). It’s intended for programmers using Python 2, programmers using Python 3, and programmers stuck somewhere between the two.
+That is, you can use this book to learn either Python line. Although the focus here is
+on 3.0 primarily, 2.6 differences and tools are also noted along the way for programmers
+using older code. While the two versions are largely the same, they diverge in some
+important ways, and I’ll point these out along the way.
+For instance, I’ll use 3.0 print calls in most examples, but will describe the 2.6 print
+statement, too, so you can make sense of earlier code. I’ll also freely introduce new
+features, such as the nonlocal statement in 3.0 and the string format method in 2.6 and
+3.0, and will point out when such extensions are not present in older Pythons.
+If you are learning Python for the first time and don’t need to use any legacy code, I
+encourage you to begin with Python 3.0; it cleans up some longstanding warts in the
+language, while retaining all the original core ideas and adding some nice new tools.Many popular Python libraries and tools will likely be available for Python 3.0 by the
+time you read these words, especially given the file I/O performance improvements
+expected in the upcoming 3.1 release. If you are using a system based on Python 2.X,
+however, you’ll find that this book addresses your concerns, too, and will help you
+migrate to 3.0 in the future.
+By proxy, this edition addresses other Python version 2 and 3 releases as well, though
+some older version 2.X code may not be able to run all the examples here. Although
+class decorators are available in both Python 2.6 and 3.0, for example, you cannot use
+them in an older Python 2.X that did not yet have this feature. See Tables P-1 and P-2
+later in this Preface for summaries of 2.6 and 3.0 changes
