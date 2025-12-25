@@ -1,6 +1,5 @@
 # Task 1 - Alpahabet
 
-
 def Task1():
 
     class Alphabet:
@@ -56,9 +55,7 @@ def Task1():
     print("Is 'Щ' Ukrainian?", ua.is_ua_lang("Щ"))
     print("Example:", EngAlphabet.example())
 
-
 # Task 2 - HUMAN / HOUSE
-
 
 def Task2():
 
@@ -141,9 +138,7 @@ def Task2():
     person.buy_house(small_house)
     person.info()
 
-
 # Task 3 - APPLE
-
 
 def Task3():
 
@@ -200,7 +195,7 @@ def Task3():
             for apple in apples:
                 print(f"Apple #{apple._index}: {apple._state}")
             
-# ===== TESTS PART 3 =====
+# ===== RESULT =====
     print("\n--- RESULT ---")
     tree = AppleTree(3)
     gardener = Gardener("Ivan", tree)
@@ -213,13 +208,165 @@ def Task3():
 
     gardener.harvest()                 
 
+# Task 4 - KMR
 
+def Task4():
+
+    import csv
+    import os
+    import re
+    from statistics import mean
+
+    class KmrCsv:
+
+        ref = None
+        num = None
+
+        def __init__(self, ref=None, num=None):
+            if ref:
+                self.set_ref(ref)
+            if num:
+                self.set_num(num)
+
+        def set_ref(self, ref):
+            if not isinstance(ref, str):
+                raise TypeError("File path must be string")
+            if not os.path.exists(ref):
+                raise FileNotFoundError("File not found")
+            self.ref = ref
+
+        def set_num(self, num):
+            if not isinstance(num, int) or num <= 0:
+                raise ValueError("Number of lines must be positive integer")
+            self.num = num
+
+        def read_csv(self):
+            if not self.ref:
+                raise ValueError("File path is not set")
+            
+            with open(self.ref, encoding='utf-8') as f:
+                return list(csv.reader(f))
+            
+        def info(self):
+            data = self.read_csv()
+            print(f"KMR №{self.num if self.num else 'N/A'}")
+            print(f"Students count: {len(data)}")
+
+    # STATISTICS
+
+    class Statistic:
+
+        @staticmethod
+        def _to_float(value):
+            try:
+                return float(value.replace(',', '.'))
+            except ValueError:
+                return 0.0
+        
+        @staticmethod
+        def _time_to_minutes(text):
+            m = re.search(r"(\d+)\s*хв.*?(\d+)\s*сек", text)
+            if not m:
+                return 0
+            minutes = int(m.group(1))
+            seconds = int(m.group(2))
+            return minutes + seconds / 60
+        
+        def avg_stat(self, data):
+
+            questions = list(zip(*data))[5:]
+
+            result = []
+
+            for col in questions:
+                nums = [self._to_float(x) for x in col]
+                result.append(round(mean(nums) * 100, 2))
+            return tuple(result)
+        
+        def marks_stat(self, data):
+            stats = {}
+            for row in data:
+                mark = round(self._to_float(row[4]))
+                stats[mark] = stats.get(mark, 0) + 1
+            return stats
+
+        def marks_per_time(self, data):
+            result = {}
+            for row in data:
+                sid = row[0]
+                mark = self._to_float(row[4])
+                minutes = self._time_to_minutes(row[3])
+
+                if minutes > 0:
+                    result[sid] = round(mark / minutes, 3)
+            return result
+
+        def best_marks_per_time(self, data, bottom_margin, top_margin):
+            best = []
+
+            for row in data:
+                sid = row[0]
+                mark = self._to_float(row[4])
+
+                if bottom_margin <= mark <= top_margin:
+                    minutes = self._time_to_minutes(row[3])
+                    if minutes > 0:
+                        avg = round(mark / minutes, 3)
+                        best.append((sid, mark, avg))
+
+            best.sort(key=lambda x: x[2], reverse=True)
+            return tuple(best[:5])
+
+    # PLOTS
+
+    class Plots:
+        def set_cat(self, cat):
+            if not isinstance(cat, str):
+                raise TypeError("Category must be string")
+            os.makedirs(cat, exist_ok=True)
+            self.cat = cat
+
+    # KMR WORK
+
+    class KmrWork(KmrCsv, Statistic, Plots):
+        kmrs = {}
+        cat = "results"
+
+        def __init__(self, ref, num):
+            super().__init__(ref, num)
+            KmrWork.kmrs[num] = ref
+
+        def compare_csv(self, other):
+            d1 = self.read_csv()
+            d2 = other.read_csv()
+
+            avg1 = mean(self._to_float(r[4]) for r in d1)
+            avg2 = mean(self._to_float(r[4]) for r in d2)
+
+            print(f"KMR {self.num}: avg mark = {round(avg1,2)}")
+            print(f"KMR {other.num}: avg mark = {round(avg2,2)}")
+
+        def compare_avg_plots(self, other):
+            print("Comparison of avg plots completed (visualization skipped)")
+
+    # ===== RESULT =====
+
+    kmr2 = KmrWork("marks2.lab11.csv", 2)
+
+    data = kmr2.read_csv()
+
+    print("AVG STAT:", kmr2.avg_stat(data))
+    print("MARKS STAT:", kmr2.marks_stat(data))
+    print("MARKS PER TIME:", list(kmr2.marks_per_time(data).items())[:3])
+    print("BEST:", kmr2.best_marks_per_time(data, 8, 10))
+   
 def main():
     while True:
         print("\nЗавдання:")
         print("1 — Завдання 1")
         print("2 — Завдання 2")
         print("3 — Завдання 3")
+        print("4 — Завдання 4")
 
         print("0 — Вийти")
 
@@ -231,12 +378,13 @@ def main():
             Task2()
         elif choice == "3":
             Task3()
-
+        elif choice == "4":
+            Task4()
+        
         elif choice == "0":
             print("Вихід!")
             break
         else:
             print("Помилка вибору!")
-
 
 main()
