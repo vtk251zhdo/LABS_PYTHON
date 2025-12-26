@@ -30,7 +30,7 @@ with app.app_context():
             description=(
                 "The debut album of the band FrostWave, created in Zhytomyr."
                 "The music conveys the atmosphere of winter evenings, "
-                ""
+                "quiet streets and neon lights of the city."
             )
         )
         db.session.add(demo_album)
