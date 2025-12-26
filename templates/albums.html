@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Albums</h1>
+
+<button><a href="/album/add">Add Album</a></button>
+
+{% for album in albums %}
+<div class="album">
+    <h2>{{ album.title }} ({{ album.year }})</h2>
+    <p>{{ album.description[:120] }}...</p>
+    <button><a href="/album/{{ album.id }}">More</a></button>
+</div>
+{% endfor %}
+{% endblock %}

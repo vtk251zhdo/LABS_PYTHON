@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>FrostWave</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+
+<canvas id="snow"></canvas>
 
 <nav>
     <a href="/">Home</a>
@@ -15,8 +18,9 @@
 </nav>
 
 <div class="container">
-    
+    {% block content %}{% endblock %}
 </div>
 
+<script src="{{ url_for('static', filename='js/snow.js') }}"></script>
 </body>
 </html>

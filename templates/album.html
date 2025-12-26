@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ album.title }}</h1>
+<p><b>Year of release:</b> {{ album.year }}</p>
+<p>{{ album.description }}</p>
+
+<button>
+    <a id="btn" href="/album/edit/{{ album.id }}">Edit</a>
+</button> |
+<button>
+    <a id="btn" href="/album/delete/{{ album.id }}">Delete</a>
+</button>
+{% endblock %}

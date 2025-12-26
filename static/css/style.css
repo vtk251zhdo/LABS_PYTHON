@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: radial-gradient(circle, #0b122f, #020412);
+    color: #e8f4ff;
+}
+
+nav {
+    background: rgba(0,0,0,0.7);
+    padding: 16px;
+    text-align: center;
+}
+
+nav a {
+    color: #9adfff;
+    margin: 0 14px;
+    text-decoration: none;
+    font-weight: 500;
+    text-decoration: none;
+
+}
+
+a{
+    color: #000000;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 60px 20px;
+    animation: fadeIn 1s ease-in;
+}
+
+h1, h2 {
+    color: #ccefff;
+    text-shadow: 0 0 10px #4fc3f7;
+}
+
+
+.album {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #4fc3f7;
+    border-radius: 14px;
+    padding: 25px;
+    margin: 25px 0;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+}
+
+input, textarea {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: none;
+    font-family: 'Montserrat';
+}
+
+button {
+    background: #4fc3f7;
+    color: #001;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #39b0f3;
+    box-shadow: 2px 2px 5px #0288d1;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0; 
+}
+
+nav, .container {
+    position: relative;
+    z-index: 2; 
+}
+
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(25px);}
+    to {opacity: 1;}
+}
+
